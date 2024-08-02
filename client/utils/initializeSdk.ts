@@ -27,7 +27,7 @@ export async function initializeSdk(): Promise<DiscordSDK> {
 
   // Retrieve an access_token from your embedded app's server
   const response = await fetch(
-    "https:/blatant-game-discord-bot.vercel.app/api/token/api/token",
+    "https:/blatant-game-discord-bot.vercel.app/api/token",
     {
       method: "POST",
       body: JSON.stringify({

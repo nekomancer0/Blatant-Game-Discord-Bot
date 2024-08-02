@@ -26,20 +26,16 @@ export async function initializeSdk(): Promise<DiscordSDK> {
   });
 
   // Retrieve an access_token from your embedded app's server
-  const response = await fetch(
-    "https://blatant-game-discord-bot.vercel.app/api/token",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        code,
-        redirect_uri:
-          "https://blatant-game-discord-bot.vercel.app/auth/callback",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch("/.proxy/api/token", {
+    method: "POST",
+    body: JSON.stringify({
+      code,
+      redirect_uri: "/.proxy/auth/callback",
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   navigator.sendBeacon("/", new URLSearchParams());
 

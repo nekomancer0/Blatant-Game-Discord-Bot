@@ -2,22 +2,11 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const app = express();
-const { default: helmet } = require("helmet");
 
-app.use(
-  helmet({
-    xFrameOptions: false,
-    xPoweredBy: false,
-    contentSecurityPolicy: false,
-    strictTransportSecurity: true,
-    crossOriginResourcePolicy: {
-      policy: "cross-origin",
-    },
-  })
-);
+app.use(express.static(path.join(__dirname, "..", "client")));
 
-app.use(express.static(path.join(__dirname, "../client")));
 app.use(express.json());
+app.use(express.urlencoded());
 
 // Fetch token from developer portal and return to the embedded app
 app.post("/api/token", async (req, res) => {

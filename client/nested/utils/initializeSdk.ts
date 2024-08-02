@@ -37,8 +37,6 @@ export async function initializeSdk(): Promise<DiscordSDK> {
     },
   });
 
-  navigator.sendBeacon("/", new URLSearchParams());
-
   const { access_token } = await response.json();
 
   // Authenticate with Discord client (using the access_token)

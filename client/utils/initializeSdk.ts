@@ -26,16 +26,32 @@ export async function initializeSdk(): Promise<DiscordSDK> {
   });
 
   // Retrieve an access_token from your embedded app's server
-  const response = await fetch("/.proxy/api/token", {
+
+  const response = await fetch(`https://discord.com/api/oauth2/token`, {
     method: "POST",
-    body: JSON.stringify({
-      code,
-      redirect_uri: "/.proxy/auth/callback",
-    }),
     headers: {
       "Content-Type": "application/json",
     },
+    body: {
+      //@ts-ignore
+      client_id: process.env.CLIENT_ID,
+      client_secret: process.env.CLIENT_SECRET,
+      grant_type: "authorization_code",
+      redirect_uri: process.env.CALLBACK,
+      code,
+    },
   });
+
+  // const response = await fetch("/api/token", {
+  //   method: "POST",
+  //   body: JSON.stringify({
+  //     code,
+  //     redirect_uri: process.env.CALLBACK,
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
 
   const { access_token } = await response.json();
 

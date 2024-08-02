@@ -3,8 +3,16 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const helmet = require("helmet");
 
-app.use(cors());
+app.use(
+  helmet({
+    xFrameOptions: false,
+    contentSecurityPolicy: false,
+    xPoweredBy: false,
+  })
+);
+
 app.use(express.static(path.join(__dirname, "../client")));
 app.use(express.json());
 

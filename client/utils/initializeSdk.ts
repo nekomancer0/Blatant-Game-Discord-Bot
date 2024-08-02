@@ -28,14 +28,16 @@ export async function initializeSdk(): Promise<DiscordSDK> {
   // Retrieve an access_token from your embedded app's server
   const response = await fetch("/api/token", {
     method: "POST",
+    body: JSON.stringify({
+      code,
+      redirect_uri: "/auth/callback",
+    }),
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      code,
-      redirect_uri: "https://blatant-game-discord-bot.vercel.app/auth/callback",
-    }),
   });
+
+  navigator.sendBeacon("/", new URLSearchParams());
 
   const { access_token } = await response.json();
 

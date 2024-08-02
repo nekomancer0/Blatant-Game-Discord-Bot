@@ -1,47 +1,20 @@
 require("dotenv").config();
 const path = require("path");
 const express = require("express");
-const cors = require("cors");
 const app = express();
-const helmet = require("helmet");
+const { default: helmet } = require("helmet");
 
 app.use(
   helmet({
     xFrameOptions: false,
     xPoweredBy: false,
-  })
-);
-
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: [
-        "'self'",
-        "discord.com",
-        "discordapp.com",
-        "ptb.discord.com",
-        "ptb.discordapp.com",
-      ],
-      connectSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "discord.com",
-        "discordapp.com",
-        "ptb.discord.com",
-        "ptb.discordapp.com",
-      ],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "discord.com",
-        "discordapp.com",
-        "ptb.discord.com",
-        "ptb.discordapp.com",
-      ],
+    contentSecurityPolicy: false,
+    strictTransportSecurity: true,
+    crossOriginResourcePolicy: {
+      policy: "cross-origin",
     },
   })
 );
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 app.use(express.static(path.join(__dirname, "../client")));
 app.use(express.json());

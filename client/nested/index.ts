@@ -1,11 +1,8 @@
-import { MessageInterface } from "./utils/MessageInterface";
-import { initializeSdk } from "./utils/initializeSdk";
+import { MessageInterface } from "../utils/MessageInterface";
 
 const messageInterface = new MessageInterface();
 
 window.addEventListener("DOMContentLoaded", async () => {
-  await initializeSdk();
-
   await messageInterface.ready();
 
   messageInterface.sendMessage({
